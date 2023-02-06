@@ -4,23 +4,24 @@ import "./Col.css"
 const Col = (props) => {
   const { className, bp } = props
 
-  const handleClassName = () => {
-    if (bp) {
-      return Object.entries(props.bp).reduce(
-        (className, breakPoint, i) =>
-          className +
-          "col-" +
-          breakPoint.join("-") +
-          (i === Object.keys(bp).length - 1 ? "" : " "),
-        ""
-      )
-    } else {
-      return "col"
-    }
+  const handleBpClassName = () => {
+    if (!bp) return "col"
+
+    const bpEntries = Object.entries(bp)
+    const bpEntriesLen = bpEntries.length
+
+    return bpEntries.reduce(
+      (className, breakPoint, i) =>
+        className +
+        "col-" +
+        breakPoint.join("-") +
+        (i === bpEntriesLen - 1 ? "" : " "),
+      ""
+    )
   }
 
   return (
-    <div className={handleClassName() + (className ? ` ${className}` : "")}>
+    <div className={handleBpClassName() + (className ? ` ${className}` : "")}>
       Col
     </div>
   )
